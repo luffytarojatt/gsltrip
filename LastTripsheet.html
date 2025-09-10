@@ -27,7 +27,7 @@
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
-            padding: 2em;
+            padding: 1em;
             background-color: var(--background-color);
             color: var(--secondary-color);
             -webkit-font-smoothing: antialiased;
@@ -48,24 +48,27 @@
             display: flex;
             align-items: center;
             gap: 20px;
-            position: relative; /* For the "TRIP SHEET" text */
+            position: relative;
+            flex-direction: column;
+            text-align: center;
         }
 
         header .logo {
-            height: 60px; /* Adjust as needed */
+            height: 60px;
             width: auto;
-            border-radius: 8px; /* Slightly rounded corners for the logo background */
-            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background for logo */
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 5px;
         }
 
         header .company-info {
             flex-grow: 1;
+            text-align: center;
         }
 
         header h1 {
             margin: 0;
-            font-size: 2.2em;
+            font-size: 1.8em;
             color: var(--header-text);
             font-weight: 700;
             letter-spacing: -0.03em;
@@ -79,9 +82,8 @@
         }
 
         header .trip-sheet-label {
-            position: absolute;
-            top: 20px;
-            right: 25px;
+            position: static;
+            margin-top: 15px;
             background-color: rgba(0, 0, 0, 0.2);
             color: white;
             padding: 8px 15px;
@@ -94,7 +96,7 @@
 
         .trip-details-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: 1fr;
             gap: 1.5em;
             margin-top: 1.5em;
             background-color: rgba(255, 255, 255, 0.1);
@@ -105,10 +107,10 @@
         .card {
             background: var(--card-background);
             border-radius: 12px;
-            padding: 1.5em 2em;
+            padding: 1.5em;
             margin-bottom: 2em;
             border: 1px solid var(--border-color);
-            box-shadow: 0 4px 10px -1px rgba(0, 0, 0, 0.08); /* Stronger shadow */
+            box-shadow: 0 4px 10px -1px rgba(0, 0, 0, 0.08);
             transition: transform 0.2s ease-in-out;
         }
 
@@ -124,11 +126,10 @@
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 1em;
             margin-bottom: 1.5em;
-            position: relative; /* For the subtle icon background */
         }
 
         .card-header h2 {
-            font-size: 1.4em; /* Slightly larger heading */
+            font-size: 1.4em;
             margin: 0;
             color: #2D3748;
             display: flex;
@@ -143,12 +144,12 @@
 
         .main-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 2em;
         }
 
         label {
-            font-weight: 600; /* Bolder labels */
+            font-weight: 600;
             display: block;
             margin-bottom: 8px;
             font-size: 0.95em;
@@ -163,7 +164,7 @@
             box-sizing: border-box;
             font-size: 1em;
             transition: border-color 0.2s, box-shadow 0.2s;
-            font-family: 'Roboto Mono', monospace; /* Monospace for numerical inputs */
+            font-family: 'Roboto Mono', monospace;
         }
 
         input:focus, select:focus {
@@ -198,67 +199,66 @@
             box-shadow: 0 0 0 3px var(--light-primary);
         }
 
+        /* Responsive Table Styles */
         table {
             width: 100%;
-            border-collapse: separate; /* Use separate to allow border-radius on cells */
+            border-collapse: collapse;
             border-spacing: 0;
             margin-top: 1em;
-            table-layout: fixed; /* Ensures columns have equal width */
         }
 
-        th, td {
-            border-bottom: 1px solid var(--border-color);
-            padding: 12px 10px;
-            text-align: left;
-            vertical-align: middle;
-            word-wrap: break-word; /* Prevents long words from breaking layout */
-        }
+        thead { display: none; }
         
-        th {
-            font-weight: 700; /* Bolder headers */
-            font-size: 0.88em;
-            color: #5C6F82;
-            text-transform: uppercase;
-            background-color: #F0F4F7; /* Light background for headers */
-            letter-spacing: 0.05em;
-        }
-
-        /* Rounded corners for table headers */
-        thead tr:first-child th:first-child { border-top-left-radius: 8px; }
-        thead tr:first-child th:last-child { border-top-right-radius: 8px; }
-
-        tbody tr:last-child td { border-bottom: none; }
-        tbody tr:nth-child(even) { background-color: #FBFBFB; } /* Zebra striping */
-        
-        td input, td select { /* Apply similar styles to select in table */
-            padding: 8px;
-            border-radius: 6px;
-            font-size: 0.95em;
-            width: 100%; /* Ensure inputs/selects fill cell width */
-            box-sizing: border-box;
+        tr {
+            display: block;
+            margin-bottom: 1em;
             border: 1px solid var(--border-color);
-            font-family: 'Roboto Mono', monospace;
+            border-radius: 8px;
+            background-color: #fff;
+            padding: 1em;
         }
-        td input:focus, td select:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px var(--light-primary);
+        
+        td {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5em 0;
+            border-bottom: none;
+            align-items: center;
         }
+        
+        td:before {
+            content: attr(data-label);
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #5C6F82;
+            font-size: 0.85em;
+            flex-shrink: 0;
+            padding-right: 1em;
+        }
+        
+        td:last-child {
+            justify-content: flex-end;
+            padding-top: 1em;
+        }
+
+        td input, td select {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 8px;
+            flex-grow: 1;
+        }
+
         .currency-selector, .unit-selector {
             width: auto;
             min-width: 60px;
-            display: inline-block;
             margin-left: 5px;
             padding: 8px;
         }
+
         .input-with-select {
             display: flex;
             align-items: center;
-        }
-
-        /* Increase width of input fields in fuel table */
-        #fuel-table td input[type="number"] {
-            min-width: 100px;
+            width: 100%;
         }
 
         .button {
@@ -292,7 +292,7 @@
         .button-danger {
             background-color: var(--light-danger);
             color: var(--danger-color);
-            padding: 8px 12px; /* Slightly larger for action */
+            padding: 8px 12px;
             font-size: 0.85em;
         }
         .button-danger:hover { background-color: #FED7D7; }
@@ -340,8 +340,8 @@
 
         .file-upload-area {
             border: 2px dashed var(--border-color);
-            border-radius: 12px; /* More rounded */
-            padding: 2em; /* More padding */
+            border-radius: 12px;
+            padding: 2em;
             text-align: center;
             cursor: pointer;
             transition: background-color 0.2s, border-color 0.2s;
@@ -361,7 +361,7 @@
             background-color: #EBF8EE;
             border-radius: 8px;
             border: 1px solid #C6F6D5;
-            display: none; /* Hidden until files are attached */
+            display: none;
         }
         #attachment-status.has-files {
             display: block;
@@ -370,31 +370,56 @@
         .print-button-container { text-align: center; margin-top: 2.5em; padding-top: 2em; border-top: 1px solid var(--border-color); }
         .print-button { font-size: 1.3em; padding: 18px 45px; border-radius: 10px; }
 
-        /* THIS IS THE HIDDEN AREA FOR FULL-PAGE ATTACHMENTS */
         #print-attachments { display: none; }
         
-        /* Responsive layout */
-        @media (max-width: 1024px) {
-            .main-grid { grid-template-columns: 1fr; }
-            header { flex-direction: column; text-align: center; }
-            header .company-info { text-align: center; }
-            header .trip-sheet-label { position: static; margin-top: 15px; }
-            .trip-details-grid { grid-template-columns: 1fr; }
-        }
+        /* Tablet & Desktop Layout */
+        @media (min-width: 768px) {
+            body { padding: 2em; }
+            header {
+                flex-direction: row;
+                text-align: left;
+                padding: 1.5em 2em;
+            }
+            header .company-info { text-align: left; }
+            header .trip-sheet-label {
+                position: absolute;
+                top: 20px;
+                right: 25px;
+                margin-top: 0;
+            }
+            .trip-details-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                padding: 1.5em;
+            }
+            .main-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .card { padding: 1.5em 2em; }
 
-        @media (max-width: 768px) {
-            body { padding: 1em; }
-            header { padding: 1em; }
-            .card { padding: 1em 1.5em; }
-            h1 { font-size: 1.8em; }
-            h2 { font-size: 1.2em; }
-            .button { padding: 8px 15px; font-size: 0.9em; }
-            th, td { padding: 10px 8px; }
-            .tab-nav { flex-wrap: wrap; }
-            .tab-button { flex: 1 1 auto; margin-right: 0; border-radius: 8px; margin-bottom: 5px; }
-            .tab-button.active { border-radius: 8px; }
-            table { font-size: 0.9em; }
-            td input, td select { font-size: 0.9em; }
+            /* Revert table styles for larger screens */
+            table {
+                table-layout: auto;
+                border-collapse: separate;
+                border-spacing: 0;
+            }
+            thead { display: table-header-group; }
+            tr {
+                display: table-row;
+                border: none;
+                background-color: transparent;
+                padding: 0;
+            }
+            td {
+                display: table-cell;
+                border-bottom: 1px solid var(--border-color);
+                padding: 12px 10px;
+            }
+            td:before { content: none; }
+            td:last-child {
+                justify-content: center;
+                text-align: right;
+                padding: 12px 10px;
+            }
         }
 
         /* STYLES SPECIFICALLY FOR PRINTING */
@@ -405,27 +430,24 @@
             
             /* Show the hidden attachment container */
             #print-attachments { display: block; }
-
-            /* Ensure both Route Log and Pickup/Drop tables are visible in print */
             .tab-content { display: block !important; }
             .tab-content h2 { border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 1em; }
             
-            /* Style each attachment to be on its own page */
             .attachment-page {
                 page-break-before: always;
                 width: 100%;
-                height: 98vh; /* Use viewport height to help center */
+                height: 98vh;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                flex-direction: column; /* Allow space for titles */
+                flex-direction: column;
                 padding: 1cm;
                 box-sizing: border-box;
             }
             .attachment-page img {
                 max-width: 100%;
-                max-height: 90vh; /* Give space for title */
-                object-fit: contain; /* Scale image to fit page without cropping */
+                max-height: 90vh;
+                object-fit: contain;
                 border: 1px solid #eee;
                 box-shadow: 0 0 10px rgba(0,0,0,0.1);
             }
@@ -437,27 +459,37 @@
                 text-align: center;
             }
 
-            /* Ensure inputs are readable */
             input[type="text"], input[type="number"], input[type="date"], textarea, select {
                 border: none;
                 border-bottom: 1px dotted #999;
                 padding: 2px 0;
                 border-radius: 0;
                 background-color: transparent;
-                font-family: 'Inter', sans-serif; /* Revert font for print */
+                font-family: 'Inter', sans-serif;
             }
-            input[readonly] {
-                background-color: transparent;
+            input[readonly] { background-color: transparent; }
+            label { color: #555; }
+            table, th, td { border-color: #ddd; }
+            thead th { background-color: #f9f9f9; }
+
+            /* Revert tables for printing */
+            table {
+                table-layout: auto;
+                border-collapse: collapse;
             }
-            label {
-                color: #555;
+            thead { display: table-header-group; }
+            tr {
+                display: table-row;
+                border: 1px solid #ccc;
+                background-color: #fff;
             }
-            table, th, td {
-                border-color: #ddd;
+            td {
+                display: table-cell;
+                border-bottom: 1px solid #ccc;
+                border-right: 1px solid #ccc;
+                padding: 10px;
             }
-            thead th {
-                background-color: #f9f9f9;
-            }
+            td:before { content: none; }
         }
     </style>
 </head>
@@ -621,9 +653,9 @@
         const newRow = tableBody.insertRow();
         
         newRow.innerHTML = `
-            <td><input type="text" value="${location}" placeholder="e.g., ON/QC Border, Toronto, ON"></td>
-            <td><input type="number" step="any" value="${odometer}" placeholder="Odometer reading"></td>
-            <td><input type="text" value="${notes}" placeholder="Tolls, Border Wait, Incident, Meal"></td>
+            <td data-label="Location"><input type="text" value="${location}" placeholder="e.g., ON/QC Border, Toronto, ON"></td>
+            <td data-label="Odometer (KM)"><input type="number" step="any" value="${odometer}" placeholder="Odometer reading"></td>
+            <td data-label="Notes"><input type="text" value="${notes}" placeholder="Tolls, Border Wait, Incident, Meal"></td>
             <td style="text-align:right;"><button class="button button-danger remove-row-btn" onclick="removeRow(this)"><i class="fas fa-trash"></i></button></td>
         `;
     }
@@ -633,15 +665,15 @@
         const newRow = tableBody.insertRow();
 
         newRow.innerHTML = `
-            <td>
+            <td data-label="Type">
                 <select>
                     <option value="Pickup" ${type === 'Pickup' ? 'selected' : ''}>Pickup</option>
                     <option value="Drop" ${type === 'Drop' ? 'selected' : ''}>Drop</option>
                 </select>
             </td>
-            <td><input type="text" value="${location}" placeholder="City, State/Prov, Company Name"></td>
-            <td><input type="text" value="${bolRef}" placeholder="BOL # / Reference #"></td>
-            <td><input type="text" value="${notes}" placeholder="Special instructions, appointment time"></td>
+            <td data-label="Location"><input type="text" value="${location}" placeholder="City, State/Prov, Company Name"></td>
+            <td data-label="BOL / Ref #"><input type="text" value="${bolRef}" placeholder="BOL # / Reference #"></td>
+            <td data-label="Notes"><input type="text" value="${notes}" placeholder="Special instructions, appointment time"></td>
             <td style="text-align:right;"><button class="button button-danger remove-row-btn" onclick="removeRow(this)"><i class="fas fa-trash"></i></button></td>
         `;
     }
@@ -651,10 +683,10 @@
         const newRow = tableBody.insertRow();
         const defaultDate = date || new Date().toISOString().slice(0, 10);
         newRow.innerHTML = `
-            <td><input type="date" value="${defaultDate}"></td>
-            <td><input type="text" value="${cityState}" placeholder="City, State/Prov"></td>
-            <td><input type="text" value="${invoice}" placeholder="Invoice #"></td>
-            <td>
+            <td data-label="Date"><input type="date" value="${defaultDate}"></td>
+            <td data-label="City/State"><input type="text" value="${cityState}" placeholder="City, State/Prov"></td>
+            <td data-label="Invoice No."><input type="text" value="${invoice}" placeholder="Invoice #"></td>
+            <td data-label="Qty">
                 <div class="input-with-select">
                     <input type="number" step="any" value="${qty}" placeholder="Qty">
                     <select class="unit-selector">
@@ -663,7 +695,7 @@
                     </select>
                 </div>
             </td>
-            <td>
+            <td data-label="Amount">
                 <div class="input-with-select">
                     <input type="number" step="any" value="${amount}" placeholder="Amount">
                     <select class="currency-selector">
@@ -679,7 +711,6 @@
     function removeRow(button) { button.closest('tr').remove(); }
     
     document.addEventListener('DOMContentLoaded', () => {
-        // Set default dates for the main trip date fields
         const today = new Date();
         const year = today.getFullYear();
         const month = (today.getMonth() + 1).toString().padStart(2, '0');
@@ -689,20 +720,18 @@
         document.getElementById('date_on').value = formattedToday;
         document.getElementById('date_of').value = formattedToday;
 
-        // Add initial empty rows for each table
         addRouteLogEntry();
         addPickupDropEntry();
-        addFuelRow(); // Also ensure fuel has an initial row
+        addFuelRow();
 
-        // Ensure the Route Log tab is active by default
-        openTab(new Event('click'), 'route-log'); // Simulate click to activate first tab
+        openTab(new Event('click'), 'route-log');
     });
 
     // --- FILE HANDLING LOGIC ---
     const fullPageAttachmentContainer = document.getElementById('print-attachments');
     const thumbnailContainer = document.getElementById('thumbnail-container');
     const statusDiv = document.getElementById('attachment-status');
-    let attachedFiles = []; // Store file objects and their URLs
+    let attachedFiles = [];
 
     function handleFileUpload(event) {
         const files = event.target.files;
@@ -717,7 +746,7 @@
             const reader = new FileReader();
             reader.onload = function(e) {
                 const imageUrl = e.target.result;
-                const fileId = `file-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`; // Unique ID
+                const fileId = `file-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
 
                 attachedFiles.push({ id: fileId, file: file, url: imageUrl });
                 renderThumbnails();
@@ -725,7 +754,7 @@
             }
             reader.readAsDataURL(file);
         }
-        event.target.value = ''; // Clear the input so same file can be selected again
+        event.target.value = '';
     }
 
     function removeAttachment(fileId) {
@@ -735,11 +764,10 @@
     }
 
     function renderThumbnails() {
-        thumbnailContainer.innerHTML = ''; // Clear existing thumbnails
-        fullPageAttachmentContainer.innerHTML = ''; // Clear existing print attachments
+        thumbnailContainer.innerHTML = '';
+        fullPageAttachmentContainer.innerHTML = '';
 
         attachedFiles.forEach(item => {
-            // Create thumbnail for screen
             const thumbItem = document.createElement('div');
             thumbItem.className = 'thumbnail-item';
             
@@ -756,7 +784,6 @@
 
             thumbnailContainer.appendChild(thumbItem);
 
-            // Create full-page image for printing
             const pageWrapper = document.createElement('div');
             pageWrapper.className = 'attachment-page';
             
@@ -767,7 +794,6 @@
 
             const title = document.createElement('div');
             title.className = 'attachment-title';
-            // Simple title based on filename, could be improved with user input for type
             title.textContent = `Attachment: ${item.file.name}`;
             pageWrapper.appendChild(title);
 
